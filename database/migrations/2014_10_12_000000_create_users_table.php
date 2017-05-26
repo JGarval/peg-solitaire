@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique()->default('');
             $table->string('enabled')->default(0);
             $table->string('isAdmin')->default(0);
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }

@@ -14,12 +14,16 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'time',
         'score',
         'isFinished',
         'board',
         'ball_color',
         'board_color',
+        'music_on',
+        'created_at',
+        'uploaded_at',
         'music_on'
     ];
 
@@ -29,6 +33,5 @@ class Game extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at',
     ];
 }
