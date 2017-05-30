@@ -11,12 +11,29 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('home', 'HomeController@index')
+    ->name('home')
+    ->middleware('auth');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('play', 'GameController@play')
+    ->name('play')
+    ->middleware('auth');
 
-Route::get('/game', 'GameController@index')->name('game');
+Route::get('place', 'GameController@place')
+    ->name('place')
+    ->middleware('auth');
+
+Route::get('score', 'GameController@score')
+    ->name('score');
+
+Route::get('about', function () { return 'About'; })
+    ->name('about');
+
+Route::get('admin', 'AdminController@isAdmin')
+    ->middleware('auth');

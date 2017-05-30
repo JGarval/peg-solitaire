@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -23,4 +26,12 @@ class AdminController extends Controller
     public function edit($id) {}
     public function update($id) {}
     public function destroy($id) {}
+
+    public function isAdmin() {
+        if (Auth::User()->isAdmin) {
+            return view('admin.admin');
+        } else {
+            return redirect()->route('home');
+        }
+    }
 }

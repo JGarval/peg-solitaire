@@ -11,6 +11,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -36,7 +39,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        &nbsp;@yield('left-navbar')
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -63,6 +66,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    @yield('dropdown-menu')
                                 </ul>
                             </li>
                         @endif
@@ -76,5 +80,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/functions.js') }}"></script>
 </body>
 </html>

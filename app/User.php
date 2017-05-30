@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'phone',
         'enabled',
-        'isAdmin'
+        'isAdmin',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -32,8 +34,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'created_at',
-        'updated_at'
+        'remember_token'
     ];
 }
