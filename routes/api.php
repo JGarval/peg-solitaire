@@ -15,4 +15,10 @@ use Illuminate\Http\Request;
 
 Route::get('/users', 'UserController@index');
 
-Route::get('/user/{id}', 'UserController@show');
+Route::get('/users/{id}', 'UserController@show');
+
+Route::put('/users/{id}', 'UserController@update');
+
+Route::post('/users', 'UserController@store');
+
+Route::delete('/users/{id}', 'UserController@destroy');

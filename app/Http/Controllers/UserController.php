@@ -38,7 +38,9 @@ class UserController extends Controller
             throw new NotFoundHttpException;
         }
 
-        return $user;
+        return response()->json([
+            'user' => $user
+        ], 200);
     }
 
     /**
@@ -59,12 +61,11 @@ class UserController extends Controller
 
         if ($user->save()) {
             return response()->json([
-                'msg'=>'User updated!',
-                'users'=>$user
+                'user' => $user
             ], 200);
         } else {
             return response()->json([
-                'msg'=>'User not found'
+                'message' => 'User not found'
             ], 404);
         }
 
@@ -83,21 +84,20 @@ class UserController extends Controller
             throw new NotFoundHttpException;
         }
 
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = \Hash::make($request->input('password'));
+        //$user->username = $request->input('username');
+        //$user->email = $request->input('email');
+        //$user->password = \Hash::make($request->input('password'));
         $user->enabled = $request->input('enabled');
-        $user->isAdmin = $request->input('isAdmin');
+        //$user->isAdmin = $request->input('isAdmin');
 
         if ($user->save()) {
             return response()->json([
-                'msg'=>'User updated!',
-                'users'=>$user
+                'user' => $user
             ], 200);
         } else {
             return response()->json([
-                'msg'=>'User not found'
-            ], 404);
+                'message' => 'User not found'
+            ], 400);
         }
     }
 
@@ -114,13 +114,12 @@ class UserController extends Controller
 
         if ($user->delete()) {
             return response()->json([
-                'msg'=>'User destroyed!',
-                'id'=>$id
+                'id' => $id
             ], 200);
         } else {
             return response()->json([
-                'msg'=>'User not found',
-            ], 200);
+                'message' => 'User not found',
+            ], 404);
         }
     }
 

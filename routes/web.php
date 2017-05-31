@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('score', 'GameController@score')
+    ->name('score');
+
+Route::get('about', function () { return view('about'); })
+    ->name('about');
+
 Route::get('home', 'HomeController@index')
     ->name('home')
     ->middleware('auth');
@@ -29,11 +35,6 @@ Route::get('place', 'GameController@place')
     ->name('place')
     ->middleware('auth');
 
-Route::get('score', 'GameController@score')
-    ->name('score');
-
-Route::get('about', function () { return 'About'; })
-    ->name('about');
-
 Route::get('admin', 'AdminController@isAdmin')
+    ->name('admin')
     ->middleware('auth');

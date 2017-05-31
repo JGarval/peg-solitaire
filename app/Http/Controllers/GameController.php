@@ -36,10 +36,14 @@ class GameController extends Controller
     public function destroy($id) {}
 
     public function play() {
-
+        return view('game.play');
     }
 
     public function place() {
+        return view('game.place');
+    }
 
+    public function score() {
+        return view('game.score');
     }
 }
