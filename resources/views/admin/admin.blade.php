@@ -4,7 +4,7 @@
 @section('dropdown-menu')
     <li>
         <a href="{{ route('home') }}">
-            Profile
+            Home
         </a>
     </li>
 @endsection
@@ -14,7 +14,11 @@
     <div class="container">
         <div class="row">
             <div id="alert_success" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> Everything went as expected.
+            </div>
+        </div>
+        <div class="row">
+            <div id="alert_danger" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
                 <strong>Warning!</strong> Better check yourself, you're not looking too good.
             </div>
         </div>

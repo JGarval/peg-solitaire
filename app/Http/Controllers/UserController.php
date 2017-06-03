@@ -84,6 +84,31 @@ class UserController extends Controller
             throw new NotFoundHttpException;
         }
 
+        /**
+         * TODO:
+         * 1. ¿Cómo hacer el UPDATE específico?
+         */
+
+        if ($request == 'username') {
+
+        } else if ($request == 'password') {
+
+        } else if ($request == 'name') {
+
+        } else if ($request == 'second_name') {
+
+        } else if ($request == 'enabled') {
+
+        } else if ($request == 'isAdmin') {
+
+        } else if ($request == 'password') {
+
+        } else if ($request == 'password') {
+
+        } else if ($request == 'password') {
+
+        }
+
         //$user->username = $request->input('username');
         //$user->email = $request->input('email');
         //$user->password = \Hash::make($request->input('password'));
@@ -119,7 +144,7 @@ class UserController extends Controller
         } else {
             return response()->json([
                 'message' => 'User not found',
-            ], 404);
+            ], 400);
         }
     }
 
