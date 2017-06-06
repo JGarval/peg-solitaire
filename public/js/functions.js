@@ -65,7 +65,7 @@ function adminOptions() {
                         '<div class="row">' +
                         '<div id="username" class="col-xs-3">' + user.username + '</div>' +
                         '<div id="email" class="col-xs-3">' + user.email + '</div>' +
-                        '<div class="col-xs-1"><button id="show" class="btn btn-default" onclick="showUser(' + user.id + ');">' + 'Show' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="show" class="btn btn-default" onclick="editUser(' + user.id + ');">' + 'Edit' + '</button></div>' +
                         '<div class="col-xs-1"><button id="edit" class="btn btn-primary" onclick="disableUser(' + user.id + ');">' + 'Disable' + '</button></div>' +
                         '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
                         '</div>' +
@@ -151,4 +151,8 @@ function disableUser(id) {
             window.location.reload(true);
         }
     });
+}
+
+function editUser($id) {
+    window.location.replace('http://127.0.0.1:8000/edit/' + $id);
 }

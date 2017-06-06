@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -155,5 +156,31 @@ class UserController extends Controller
     public function options($id) {
         $headers = ['Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS'];
         return response()->make("",200, $headers);
+    }
+
+    public function isAdmin() {
+        if (Auth::User()->isAdmin) {
+            return view('admin.admin');
+        } else {
+            return redirect()->route('profile');
+        }
+    }
+
+    public function editUser($id) {
+        if (Auth::User()->isAdmin) {
+            $user = User::findOrFail($id);
+            return view('admin.edit', [
+                "id" => $user->id,
+                "username" => $user->username,
+                "name" => $user->name,
+                "second_name" => $user->second_name,
+                "email" => $user->email,
+                "phone" => $user->phone,
+                "enabled" => $user->enabled,
+                "isAdmin" => $user->isAdmin
+            ]);
+        } else {
+            return redirect()->route('profile');
+        }
     }
 }

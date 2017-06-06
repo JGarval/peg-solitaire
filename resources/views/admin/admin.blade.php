@@ -3,8 +3,8 @@
 <!-- TODO: Hay que poner que vaya a profile -->
 @section('dropdown-menu')
     <li>
-        <a href="{{ route('home') }}">
-            Home
+        <a href="{{ route('profile') }}">
+            Profile
         </a>
     </li>
 @endsection

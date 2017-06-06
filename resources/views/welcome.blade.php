@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('dropdown-menu')
+
+    <li>
+        <a href="{{ route('profile') }}">
+            Profile
+        </a>
+    </li>
+
+@endsection
+
 @section('content')
 
     <div class="container">

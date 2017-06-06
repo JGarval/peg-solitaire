@@ -23,8 +23,8 @@ Route::get('score', 'GameController@score')
 Route::get('about', function () { return view('about'); })
     ->name('about');
 
-Route::get('home', 'HomeController@index')
-    ->name('home')
+Route::get('profile', 'HomeController@index')
+    ->name('profile')
     ->middleware('auth');
 
 Route::get('play', 'GameController@play')
@@ -35,6 +35,10 @@ Route::get('place', 'GameController@place')
     ->name('place')
     ->middleware('auth');
 
-Route::get('admin', 'AdminController@isAdmin')
+Route::get('admin', 'UserController@isAdmin')
     ->name('admin')
+    ->middleware('auth');
+
+Route::get('edit/{id}', 'UserController@editUser')
+    ->name('edit')
     ->middleware('auth');
