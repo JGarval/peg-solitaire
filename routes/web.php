@@ -15,7 +15,8 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-});
+})
+    ->name('welcome');
 
 Route::get('score', 'GameController@score')
     ->name('score');

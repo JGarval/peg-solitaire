@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+// USERS
+
 Route::get('/users', 'UserController@index');
 
 Route::get('/users/{id}', 'UserController@show');
@@ -22,3 +24,14 @@ Route::put('/users/{id}', 'UserController@update');
 Route::post('/users', 'UserController@store');
 
 Route::delete('/users/{id}', 'UserController@destroy');
+
+// GAMES
+Route::get('/games', 'GameController@index');
+
+Route::get('/games/{id}', 'GameController@show');
+
+Route::put('/games/{id}', 'GameController@update');
+
+Route::post('/games', 'GameController@store');
+
+Route::delete('/games/{id}', 'GameController@destroy');

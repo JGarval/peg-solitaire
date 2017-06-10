@@ -15,6 +15,9 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/flex.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -55,6 +58,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    @yield('dropdown-menu')
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -66,7 +70,6 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    @yield('dropdown-menu')
                                 </ul>
                             </li>
                         @endif
@@ -81,5 +84,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/functions.js') }}"></script>
+    <script src="{{ asset('js/play.js') }}"></script>
+    <script src="{{ asset('js/place.js') }}"></script>
 </body>
 </html>

@@ -13,9 +13,27 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('games', function(Blueprint $table)
+        {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('time')->nullable();
+            $table->integer('score')->nullable();
+            $table->boolean('isFinished')->default('0');
+            $table->string('board'); // 0 = ball 1 = gap
             $table->timestamps();
+        });
+
+//        Schema::table('games', function (Blueprint $table){
+//            $table->foreign('user_id')->references('id')
+//                ->on('users')->onDelete('cascade')
+//                ->onUpdate('cascade');
+//        });
+
+        Schema::table('games', function (Blueprint $table){
+            $table->foreign('user_id')->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

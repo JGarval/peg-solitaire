@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -11,10 +13,10 @@ class GameController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
 
     /**
@@ -27,7 +29,9 @@ class GameController extends Controller
      *  DELETE      - /photos/{photo}       - destroy
      */
 
-    public function index() {}
+    public function index() {
+        return Game::all();
+    }
     public function create() {}
     public function store() {}
     public function show($id) {}

@@ -1,12 +1,5 @@
 $(document).ready(function () {
     adminOptions();
-
-    /**
-     * TODO:
-     * 1. ¿Es buena práctica: var users = getUsers()?
-     * 2. ¿Cómo hacer 2 way binding en JS? Es decir, que se actualice sin necesidad de refrescar la página.
-     * 3.
-     */
 });
 
 function getUsers() {
@@ -65,7 +58,7 @@ function adminOptions() {
                         '<div class="row">' +
                         '<div id="username" class="col-xs-3">' + user.username + '</div>' +
                         '<div id="email" class="col-xs-3">' + user.email + '</div>' +
-                        '<div class="col-xs-1"><button id="show" class="btn btn-default" onclick="editUser(' + user.id + ');">' + 'Edit' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="edit" class="btn btn-default" onclick="editUser(' + user.id + ');">' + 'Edit' + '</button></div>' +
                         '<div class="col-xs-1"><button id="edit" class="btn btn-primary" onclick="disableUser(' + user.id + ');">' + 'Disable' + '</button></div>' +
                         '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
                         '</div>' +
@@ -83,11 +76,11 @@ function enableUser(id) {
         data: {
             'enabled': 1
         },
-        success: function () {
-            $('#alert_success').show();
-        },
         error: function () {
-            $('#alert_danger').show();
+            //$('#alert_danger').show();
+        },
+        success: function () {
+            //$('#alert_success').show();
         },
         complete: function () {
             window.location.reload(true);
@@ -100,10 +93,10 @@ function deleteUser(id) {
         url: '/api/users/' + id,
         type: 'DELETE',
         success: function () {
-            $('#alert_success').show();
+            //$('#alert_success').show();
         },
         error: function () {
-            $('#alert_danger').show();
+            //$('#alert_danger').show();
         },
         complete: function () {
             window.location.reload(true);
@@ -116,10 +109,10 @@ function showUser(id) {
         url: '/api/users/' + id,
         type: 'GET',
         success: function () {
-            $('#alert_success').show();
+            //$('#alert_success').show();
         },
         error: function () {
-            $('#alert_danger').show();
+            //$('#alert_danger').show();
         },
         complete: function () {
             window.location.replace('http://127.0.0.1:8000/api/users/' + id);
@@ -142,10 +135,10 @@ function disableUser(id) {
             'enabled': 0
         },
         success: function () {
-            $('#alert_success').show();
+            //$('#alert_success').show();
         },
         error: function () {
-            $('#alert_danger').show();
+            //$('#alert_danger').show();
         },
         complete: function () {
             window.location.reload(true);
@@ -154,5 +147,47 @@ function disableUser(id) {
 }
 
 function editUser($id) {
-    window.location.replace('http://127.0.0.1:8000/edit/' + $id);
+    window.location.replace('/edit/' + $id);
+}
+
+function updateUser($id) {
+    var username = $('#inputUsername').val();
+    var email = $('#inputEmail').val();
+    var name = $('#inputName').val();
+    var second_name = $('#inputSecondName').val();
+    var phone = $('#inputPhone').val();
+    var enabled = $('#inputEnabled').val();
+    var isAdmin = $('#inputIsAdmin').val();
+
+    $.ajax({
+        url: '/api/users/' + id,
+        type: 'PUT',
+        data: {
+            'username': username,
+            'email' : email,
+            'name' : name,
+            'second_name' : second_name,
+            'phone' : phone,
+            'enabled' : enabled,
+            'isAdmin' : isAdmin
+        },
+        success: function () {
+            $('#alert_success').show();
+            window.location.replace('/admin');
+        },
+        error: function () {
+            $('#alert_danger').show();
+        },
+        complete: function () {
+            window.location.replace('/admin');
+        }
+    });
+}
+
+function refreshPage() {
+    window.location.replace('/admin');
+}
+
+function saveGame() {
+
 }

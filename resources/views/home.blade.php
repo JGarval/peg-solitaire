@@ -20,33 +20,31 @@
                 </div>
 
                 <div class="panel-body">
-                    <form>
+                    <form id="editProfile" action="{{ url('/api/users', ['id' => Auth::user()->id]) }}" method="post">
+                        <input name="_method" type="hidden" value="PUT">
                         <div class="form-group">
                             <label for="inputUsername">Username</label>
-                            <input type="text" class="form-control" id="inputUsername" placeholder="Username" value="{{ Auth::user()->username }}">
+                            <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" value="{{ Auth::user()->username }}">
                         </div>
                         <div class="form-group">
                             <label for="inputEmail">Email address</label>
-                            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" value="{{ Auth::user()->email }}">
+                            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" name="email" value="{{ Auth::user()->email }}">
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword">Password</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputRepeatPassword">Repeat Password</label>
-                            <input type="password" class="form-control" id="inputRepeatPassword" placeholder="Password">
+                            <label for="inputPhone">Phone</label>
+                            <input type="number" class="form-control" id="inputPhone" placeholder="Phone" name="phone" value="{{ Auth::user()->phone }}">
                         </div>
                         <div class="form-group">
                             <label for="inputName">Name</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Name" value="{{ Auth::user()->name }}">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name" name="name" value="{{ Auth::user()->name }}">
                         </div>
                         <div class="form-group">
                             <label for="inputSecondName">Second Name</label>
-                            <input type="text" class="form-control" id="inputSecondName" placeholder="Second Name" value="{{ Auth::user()->second_name }}">
+                            <input type="text" class="form-control" id="inputSecondName" placeholder="Second Name" name="second_name" value="{{ Auth::user()->second_name }}">
                         </div>
-                        <button type="submit" class="btn btn-success">Save!</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a href="{{ route('admin') }}"><button type="button" class="btn btn-primary">Back</button></a>
                     </form>
                 </div>
             </div>

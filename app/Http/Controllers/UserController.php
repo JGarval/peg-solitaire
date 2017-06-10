@@ -78,6 +78,7 @@ class UserController extends Controller
      * @return Updates a user
      * Updates the instance of a user.
      */
+
     public function update(Request $request, $id) {
         $user = User::findOrFail($id);
 
@@ -85,41 +86,40 @@ class UserController extends Controller
             throw new NotFoundHttpException;
         }
 
-        /**
-         * TODO:
-         * 1. ¿Cómo hacer el UPDATE específico?
-         */
-
-        if ($request == 'username') {
-
-        } else if ($request == 'password') {
-
-        } else if ($request == 'name') {
-
-        } else if ($request == 'second_name') {
-
-        } else if ($request == 'enabled') {
-
-        } else if ($request == 'isAdmin') {
-
-        } else if ($request == 'password') {
-
-        } else if ($request == 'password') {
-
-        } else if ($request == 'password') {
-
+        if ($request->input('username') != null) {
+            $user->username = $request->input('username');
         }
 
-        //$user->username = $request->input('username');
-        //$user->email = $request->input('email');
-        //$user->password = \Hash::make($request->input('password'));
-        $user->enabled = $request->input('enabled');
-        //$user->isAdmin = $request->input('isAdmin');
+        if ($request->input('email') != null) {
+            $user->email = $request->input('email');
+        }
+
+        if ($request->input('name') != null) {
+            $user->name = $request->input('name');
+        }
+
+        if ($request->input('phone') != null) {
+            $user->phone = $request->input('phone');
+        }
+
+        if ($request->input('second_name') != null) {
+            $user->second_name = $request->input('second_name');
+        }
+
+        if ($request->input('enabled') != null) {
+            $user->enabled = $request->input('enabled');
+        }
+
+        if ($request->input('isAdmin') != null) {
+            $user->isAdmin = $request->input('isAdmin');
+        }
+
+        if ($request->input('password') != null) {
+            $user->password = \Hash::make($request->input('password'));
+        }
 
         if ($user->save()) {
-            return response()->json([
-                'user' => $user
-            ], 200);
+            return redirect()->route('admin');
         } else {
             return response()->json([
                 'message' => 'User not found'
