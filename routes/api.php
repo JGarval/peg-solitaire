@@ -35,3 +35,5 @@ Route::put('/games/{id}', 'GameController@update');
 Route::post('/games', 'GameController@store');
 
 Route::delete('/games/{id}', 'GameController@destroy');
+
+Route::get('/top_games', 'GameController@topScores');

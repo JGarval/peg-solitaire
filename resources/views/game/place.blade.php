@@ -15,6 +15,7 @@
         <div class="col-sm-3">
             <h2>Place options:</h2>
             <form class="form">
+                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::User()->id }}">
                 <div class="form-group">
                     <label for="place-timer-option" class="col-sm-12 control-label">Set Seconds</label>
                     <div class="col-sm-10">
@@ -24,7 +25,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div id="saveGameBtn" class="form-group">
                     <div class="col-sm-12">
                         <button type="button" class="btn btn-success" onclick="startGame()">Play</button>
                     </div>

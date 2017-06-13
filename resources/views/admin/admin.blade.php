@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-<!-- TODO: Hay que poner que vaya a profile -->
 @section('dropdown-menu')
     <li>
         <a href="{{ route('profile') }}">

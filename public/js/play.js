@@ -29,6 +29,9 @@ var possiblePositions = ['pos-1-3', 'pos-1-4', 'pos-1-5',
 // }
 
 function createBoard() {
+
+    document.getElementById('saveGameBtn').innerHTML = '<button type="button" class="btn btn-primary" onclick="saveGame()">Save Game</button>';
+
     /*
      Creates the board structure
      */
@@ -192,7 +195,7 @@ document.addEventListener("dragstart", function (event) {
         event.target.style.border = 0;
     }
     event.dataTransfer.setData('Text', this.id);
-    ;}, false);
+}, false);
 
 document.addEventListener("dragend", function (event) {
 }, false);

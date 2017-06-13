@@ -16,6 +16,7 @@
             <h2>Play options:</h2>
             <form method="post" action="{{ url('/api/games', ['id' => Auth::User()->id]) }}">
                 <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::User()->id }}">
                 <div class="form-group">
                     <div class="radio">
                         <label>
@@ -41,10 +42,9 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div id="saveGameBtn" class="form-group">
                     <div class="col-sm-12">
                         <button type="button" class="btn btn-success" onclick="createBoard()">Play</button>
-                        <button type="submit" class="btn btn-primary" onclick="saveGame()">Save Game</button>
                     </div>
                 </div>
             </form>
@@ -64,7 +64,5 @@
         <!-- /#play-container -->
 
     </div><!-- /.container -->
-
-
 
 @endsection

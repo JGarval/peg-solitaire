@@ -1,5 +1,6 @@
 $(document).ready(function () {
     adminOptions();
+    printScores();
 });
 
 function getUsers() {
@@ -24,7 +25,7 @@ function getUsers() {
 }
 
 function usersToEnable() {
-    users = getUsers();
+    var users = getUsers();
     $.each(users, function (i, user) {
         if (user.enabled == 0) {
             $('#users_to_enable').append('' +
@@ -46,6 +47,34 @@ function adminOptions() {
             $.each(data, function (i, user) {
                 if (user.enabled == 0) {
                     $('#users_to_enable').append('' +
+                        '<div class="row">' +
+                        '<div id="username" class="col-xs-3">' + user.username + '</div>' +
+                        '<div id="email" class="col-xs-3">' + user.email + '</div>' +
+                        '<div class="col-xs-1"><button id="ok" class="btn btn-success" onclick="enableUser(' + user.id + ');">' + 'Enable' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
+                        '</div>' +
+                        '<hr>');
+                } else {
+                    $('#users_list').append('' +
+                        '<div class="row">' +
+                        '<div id="username" class="col-xs-3">' + user.username + '</div>' +
+                        '<div id="email" class="col-xs-3">' + user.email + '</div>' +
+                        '<div class="col-xs-1"><button id="edit" class="btn btn-default" onclick="editUser(' + user.id + ');">' + 'Edit' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="edit" class="btn btn-primary" onclick="disableUser(' + user.id + ');">' + 'Disable' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
+                        '</div>' +
+                        '<hr>');
+                }
+            });
+        }
+    );
+
+    $.getJSON(
+        '/api/games',
+        function(data) {
+            $.each(data, function (i, game) {
+                if (user.enabled == 0) {
+                    $('#users_score').append('' +
                         '<div class="row">' +
                         '<div id="username" class="col-xs-3">' + user.username + '</div>' +
                         '<div id="email" class="col-xs-3">' + user.email + '</div>' +
@@ -122,12 +151,6 @@ function showUser(id) {
 }
 
 function disableUser(id) {
-    /**
-     * TODO:
-     * 1. Tiene que redireccionar a un formulario para editar el usuario.
-     * 2. O tiene que cambiar el estado de enable a 0
-     */
-
     $.ajax({
         url: '/api/users/' + id,
         type: 'PUT',
@@ -189,5 +212,58 @@ function refreshPage() {
 }
 
 function saveGame() {
+
+    var user_id = $('#user_id').attr('value');
+    var time = $('#display-time-place').val();
+    var score = $('#display-score-place').val();
+    if ($('#board').html() == undefined) {
+        var boardArray = $('#empty-board').html()
+    } else {
+        var boardArray = $('#board').html();
+    }
+
+    $.ajax({
+        url: '/api/games',
+        type: 'POST',
+        data: {
+            'user_id': user_id,
+            'time' : 1,
+            'score' : 1,
+            'isFinished' : 1,
+            'board' : boardArray
+        },
+        success: function () {
+            alert('success');
+        },
+        error: function () {
+            alert('error');
+        },
+        complete: function () {
+            alert('complete');
+        }
+    });
+}
+
+function printScores(top) {
+    var count = 0;
+    $('#users_score').empty();
+    $.getJSON(
+        '/api/top_games',
+        function (data) {
+            $.each(data.games, function (i, game) {
+                do {
+                    $('#users_score').append('' +
+                        '<div class="row">' +
+                        '<div class="col-xs-3">' + game.user_id + '</div>' +
+                        '<div class="col-xs-3">' + game.score + '</div>' +
+                        '<div class="col-xs-3">' + game.time + '</div>' +
+                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + game.score + ');">' + 'Delete' + '</button></div>' +
+                        '</div>' +
+                        '<hr>');
+                    count++;
+                } while (count > top)
+            });
+        }
+    );
 
 }

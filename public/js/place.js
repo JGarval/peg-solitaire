@@ -48,6 +48,7 @@ function placeBall(event) {
 }
 
 function startGame() {
+    document.getElementById('saveGameBtn').innerHTML = '<button type="button" class="btn btn-primary" onclick="saveGame()">Save Game</button>';
 
     document.removeEventListener('click', placeBall);
     document.addEventListener('click', showPossibleMoves);

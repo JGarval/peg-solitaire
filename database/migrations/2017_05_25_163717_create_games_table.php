@@ -20,7 +20,7 @@ class CreateGamesTable extends Migration
             $table->integer('time')->nullable();
             $table->integer('score')->nullable();
             $table->boolean('isFinished')->default('0');
-            $table->string('board'); // 0 = ball 1 = gap
+            $table->string('board');
             $table->timestamps();
         });
 
