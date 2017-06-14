@@ -70,29 +70,17 @@ function adminOptions() {
     );
 
     $.getJSON(
-        '/api/games',
-        function(data) {
-            $.each(data, function (i, game) {
-                if (user.enabled == 0) {
-                    $('#users_score').append('' +
-                        '<div class="row">' +
-                        '<div id="username" class="col-xs-3">' + user.username + '</div>' +
-                        '<div id="email" class="col-xs-3">' + user.email + '</div>' +
-                        '<div class="col-xs-1"><button id="ok" class="btn btn-success" onclick="enableUser(' + user.id + ');">' + 'Enable' + '</button></div>' +
-                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
-                        '</div>' +
-                        '<hr>');
-                } else {
-                    $('#users_list').append('' +
-                        '<div class="row">' +
-                        '<div id="username" class="col-xs-3">' + user.username + '</div>' +
-                        '<div id="email" class="col-xs-3">' + user.email + '</div>' +
-                        '<div class="col-xs-1"><button id="edit" class="btn btn-default" onclick="editUser(' + user.id + ');">' + 'Edit' + '</button></div>' +
-                        '<div class="col-xs-1"><button id="edit" class="btn btn-primary" onclick="disableUser(' + user.id + ');">' + 'Disable' + '</button></div>' +
-                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + user.id + ');">' + 'Delete' + '</button></div>' +
-                        '</div>' +
-                        '<hr>');
-                }
+        '/api/top_games',
+        function (data) {
+            $.each(data.games, function (i, game) {
+                $('#users_scores').append('' +
+                    '<div class="row">' +
+                    '<div class="col-xs-3">' + game.user_id + '</div>' +
+                    '<div class="col-xs-3">' + game.score + '</div>' +
+                    '<div class="col-xs-3">' + game.time + '</div>' +
+                    '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteGame(' + game.id + ');">' + 'Delete' + '</button></div>' +
+                    '</div>' +
+                    '<hr>');
             });
         }
     );
@@ -212,11 +200,26 @@ function refreshPage() {
 }
 
 function saveGame() {
-
     var user_id = $('#user_id').attr('value');
-    var time = $('#display-time-place').val();
-    var score = $('#display-score-place').val();
-    if ($('#board').html() == undefined) {
+
+    if ($('#display-time-place').text() === 'Timeless') {
+        var time = -1;
+    } else if ($('#display-time').text() === 'Timeless') {
+        var time = -1;
+    } else if ($('#display-time').text() === '') {
+        var time = $('#display-time-place').text();
+    } else if ($('#display-time-place').text() === '') {
+        var time = $('#display-time').text();
+    }
+
+
+    if ($('#display-score-place').text() === '') {
+        var score = $('#display-score').text();
+    } else {
+        var score = $('#display-score-place').text();
+    }
+
+    if ($('#board').html() === undefined) {
         var boardArray = $('#empty-board').html()
     } else {
         var boardArray = $('#board').html();
@@ -227,19 +230,18 @@ function saveGame() {
         type: 'POST',
         data: {
             'user_id': user_id,
-            'time' : 1,
-            'score' : 1,
+            'time' : time,
+            'score' : score,
             'isFinished' : 1,
             'board' : boardArray
         },
         success: function () {
-            alert('success');
+            $('#alert_success').show();
         },
         error: function () {
-            alert('error');
+            $('#alert_danger').show();
         },
         complete: function () {
-            alert('complete');
         }
     });
 }
@@ -257,11 +259,42 @@ function printScores(top) {
                         '<div class="col-xs-3">' + game.user_id + '</div>' +
                         '<div class="col-xs-3">' + game.score + '</div>' +
                         '<div class="col-xs-3">' + game.time + '</div>' +
-                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteUser(' + game.score + ');">' + 'Delete' + '</button></div>' +
+                        '<div class="col-xs-1"><button id="ko" class="btn btn-danger" onclick="deleteGame(' + game.id + ');">' + 'Delete' + '</button></div>' +
                         '</div>' +
                         '<hr>');
                     count++;
                 } while (count > top)
+            });
+        }
+    );
+}
+
+function deleteGame(id) {
+    $.ajax({
+        url: '/api/games/' + id,
+        type: 'DELETE',
+        success: function () {
+            //$('#alert_success').show();
+        },
+        error: function () {
+            //$('#alert_danger').show();
+        },
+        complete: function () {
+            window.location.reload(true);
+        }
+    });
+}
+
+function resumeGame(id) {
+
+    window.location.replace('/play');
+
+    $.getJSON(
+        '/api/games/' + id,
+        function (data) {
+            $.each(data, function (i, game) {
+                $('#board').empty();
+                $('#board').innerHTML = game.board;
             });
         }
     );

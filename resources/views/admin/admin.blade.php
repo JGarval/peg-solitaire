@@ -56,7 +56,7 @@
                 <h2>Scores</h2>
                 <div id="users_scores" class="container">
                     <div class="row">
-                        <div class="col-xs-3">Username</div>
+                        <div class="col-xs-3">User ID</div>
                         <div class="col-xs-3">Score</div>
                     </div>
                     <hr>

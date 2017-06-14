@@ -5,6 +5,8 @@ emptyBoard = document.getElementById('empty-board');
 emptyHtml = "";
 var id = "";
 
+var placedBall = false; // Tells if a ball has been placed on the empty board.
+
 // Building the board
 for (var row = 1; row <= 7; row++) {
     emptyHtml += "<ul class='rowUl'>";
@@ -27,7 +29,6 @@ for (var row = 1; row <= 7; row++) {
 emptyBoard.innerHTML = emptyHtml;
 document.addEventListener('click', placeBall);
 
-
 function placeBall(event) {
 	/**
 	 * [if description]
@@ -44,10 +45,17 @@ function placeBall(event) {
     }
 
     emptyHtml = document.getElementById('empty-board');
+    placedBall = true;
 
 }
 
 function startGame() {
+
+    if (!placedBall) {
+        alert('Place the balls before!');
+        window.location.reload();
+    }
+
     document.getElementById('saveGameBtn').innerHTML = '<button type="button" class="btn btn-primary" onclick="saveGame()">Save Game</button>';
 
     document.removeEventListener('click', placeBall);
@@ -83,6 +91,13 @@ function startGame() {
     displayTime.appendChild(document.createTextNode(time));
     ballsList = document.getElementsByClassName('ball');
     gapsList  = document.getElementsByClassName('gap');
+
+    if (ballsList.length < 2) {
+        document.getElementById('mainBoard').style.display = 'none';
+        document.getElementById('mainMsg').style.display = 'block';
+        document.getElementById('mainScore').innerHTML = score;
+        document.getElementById('mainTime').innerHTML = time;
+    }
 }
 
 function placeCountDown() {

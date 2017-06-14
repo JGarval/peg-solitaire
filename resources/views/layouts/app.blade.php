@@ -84,7 +84,5 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/functions.js') }}"></script>
-    <script src="{{ asset('js/play.js') }}"></script>
-    <script src="{{ asset('js/place.js') }}"></script>
 </body>
 </html>

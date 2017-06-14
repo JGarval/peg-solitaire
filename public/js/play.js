@@ -80,6 +80,13 @@ function createBoard() {
     displayTime.innerHTML = time;
     ballsList = document.getElementsByClassName('ball');
     gapsList  = document.getElementsByClassName('gap');
+
+    if (ballsList.length < 2) {
+        document.getElementById('mainBoard').style.display = 'none';
+        document.getElementById('mainMsg').style.display = 'block';
+        document.getElementById('mainScore').innerHTML = score;
+        document.getElementById('mainTime').innerHTML = time;
+    }
 }
 
 function countDown() {
@@ -294,6 +301,13 @@ document.addEventListener("drop", function (event) {
         for(var i = 0; i < gapsList.length; i++) {
             document.getElementById(gapsList[i].id).style.border = '5px solid #F1D67F';
         }
+    }
+
+    if (ballsList.length < 2) {
+        document.getElementById('mainBoard').style.display = 'none';
+        document.getElementById('mainMsg').style.display = 'block';
+        document.getElementById('mainScore').innerHTML = score;
+        document.getElementById('mainTime').innerHTML = time;
     }
 
 }, false);

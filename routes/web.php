@@ -43,3 +43,7 @@ Route::get('admin', 'UserController@isAdmin')
 Route::get('edit/{id}', 'UserController@editUser')
     ->name('edit')
     ->middleware('auth');
+
+Route::get('my-games', 'GameController@myGames')
+    ->name('my-games')
+    ->middleware('auth');

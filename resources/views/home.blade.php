@@ -11,6 +11,27 @@
 @endsection
 
 @section('content')
+
+
+    @php ($games = \App\Game::where(['user_id' => Auth::user()->id])->count())
+
+    <div class="container">
+        @if($games > 0)
+            <div class="row">
+                <div id="alert_success" class="alert alert-success alert-dismissible" role="alert">
+                    <strong>You have {{ $games }} games without playing.</strong> <a href="{{ route('my-games') }}">Click here to play them!</a>
+                </div>
+            </div>
+        @else
+            <div class="row">
+                <div id="alert_danger" class="alert alert-info alert-dismissible" role="alert">
+                    <strong>You don't have any game left.</strong> <a href="{{ route('welcome') }}">Click here to start a new game!</a>
+                </div>
+            </div>
+        @endif
+    </div>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

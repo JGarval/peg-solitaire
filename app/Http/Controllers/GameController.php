@@ -137,4 +137,9 @@ class GameController extends Controller
             ], 400);
         }
     }
+
+    public function myGames() {
+        return view('game.my-games');
+    }
+
 }
