@@ -3,8 +3,8 @@
  */
 var clicked; // The ball that is been clicked
 var dragged; // The ball that is been dragged
-var ballsList; // All the elements with class='ball'
-var gapsList; // All the elements with class="gap"
+var ballsList = document.getElementsByClassName('ball'); // All the elements with class='ball'
+var gapsList = document.getElementsByClassName('gap'); // All the elements with class="gap"
 var neighbourGaps; // The immediate gap neighbours of clicked & dragged
 var gap; // Gap element
 var time = -1; // Game timer: blank is limitless
@@ -94,7 +94,7 @@ function countDown() {
         displayTime = document.getElementById('display-time').innerHTML = time--;
     } else if (time < 0){
         clearInterval(countDown);
-        if (ballsList.length == 1) {
+        if (ballsList.length === 1) {
             score += 150;
         } else {
             score -= ballsList.length * 50;
@@ -236,46 +236,48 @@ document.addEventListener("drop", function (event) {
     for(var i = 0; i < neighbourGaps.length; i++) {
         if(event.target.id == neighbourGaps[i]) {
             // The gap converts to a ball
+            event.target.style.cssText = null;
             event.target.className = 'cell ball';
-            event.target.style.border = 0;
-            event.target.style.background = "url('images/ball.svg') center";
+            event.target.style.border = '0';
+            event.target.style.background = "url('http://127.0.0.1:8000/images/ball.svg') center";
             event.target.style.backgroundSize = '6vh';
             event.target.style.backgroundRepeat = 'no-repeat';
             document.getElementById(neighbourGaps[i]).setAttribute('draggable', true);
             event.target.addEventListener('click', function(){ showPossibleMoves(this) });
 
             // The dragged ball converts to a gap
+            document.getElementById(dragged).style.cssText = null;
             document.getElementById(dragged).className = 'cell gap';
             document.getElementById(dragged).style.border = '5px solid #F1D67F';
             document.getElementById(dragged).style.background = '#D8BF7D';
-            document.getElementById(dragged).style.backgroundSize = 0;
-            document.getElementById(dragged).style.backgroundRepeat = 0;
+            document.getElementById(dragged).style.backgroundSize = '0';
+            document.getElementById(dragged).style.backgroundRepeat = 'no-repeat';
             document.getElementById(dragged).removeEventListener('click', showPossibleMoves);
 
             // The ball in the middle gets eaten.
             switch(true) {
-                case row == -2 && column == 0:
+                case row === -2 && column === 0:
                     id = "pos-" + parseInt(dragRow - 1) + "-" + parseInt(dragColumn);
                     document.getElementById(id).className = 'cell gap';
                     document.getElementById(id).style.border = '5px solid #F1D67F';
                     document.getElementById(id).style.background = '#D8BF7D';
                     document.getElementById(id).removeEventListener('click', showPossibleMoves);
                     break;
-                case row = 2 && column == 0:
+                case row === 2 && column === 0:
                     id = "pos-" + parseInt(dragRow + 1) + "-" + parseInt(dragColumn);
                     document.getElementById(id).className = 'cell gap';
                     document.getElementById(id).style.border = '5px solid #F1D67F';
                     document.getElementById(id).style.background = '#D8BF7D';
                     document.getElementById(id).removeEventListener('click', showPossibleMoves);
                     break;
-                case row == 0 && column == -2:
+                case row === 0 && column === -2:
                     id = "pos-" + parseInt(dragRow) + "-" + parseInt(dragColumn - 1);
                     document.getElementById(id).className = 'cell gap';
                     document.getElementById(id).style.border = '5px solid #F1D67F';
                     document.getElementById(id).style.background = '#D8BF7D';
                     document.getElementById(id).removeEventListener('click', showPossibleMoves);
                     break;
-                case row == 0 && column == 2:
+                case row === 0 && column === 2:
                     id = "pos-" + parseInt(dragRow) + "-" + parseInt(dragColumn + 1);
                     document.getElementById(id).className = 'cell gap';
                     document.getElementById(id).style.border = '5px solid #F1D67F';
@@ -294,7 +296,7 @@ document.addEventListener("drop", function (event) {
     }
 
     // If there is a previous click, remove the border style and add default border to the dragged ball.
-    if(clicked != undefined ) {
+    if(clicked !== undefined ) {
         document.getElementById(clicked[0].id).style.border = 0;
         document.getElementById(dragged).style.border = '5px solid #F1D67F';
         // Also, give the default border to all the gaps.

@@ -285,18 +285,8 @@ function deleteGame(id) {
     });
 }
 
-function resumeGame(id) {
+function resumeGame(gameID) {
 
-    window.location.replace('/play');
-
-    $.getJSON(
-        '/api/games/' + id,
-        function (data) {
-            $.each(data, function (i, game) {
-                $('#board').empty();
-                $('#board').innerHTML = game.board;
-            });
-        }
-    );
+    window.location.replace('/play/?' + 'id=' + gameID);
 
 }

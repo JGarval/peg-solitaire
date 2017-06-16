@@ -2,6 +2,15 @@
 
 @section('content')
 
+    @if(isset($_GET["id"]))
+        @php
+            $gameID = htmlspecialchars($_GET["id"]);
+            $board = \App\Game::find($gameID)->board;
+            $time = \App\Game::find($gameID)->time;
+            $score = \App\Game::find($gameID)->score;
+        @endphp
+    @endif
+
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
@@ -76,7 +85,11 @@
                 </div>
                 <div id="saveGameBtn" class="form-group">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-success" onclick="createBoard()">Play</button>
+                        @if(isset($_GET["id"]))
+                            <button type="button" class="btn btn-primary" onclick="saveGame()">Save Game</button>
+                        @else
+                            <button type="button" class="btn btn-success" onclick="createBoard()">Play</button>
+                        @endif
                     </div>
                 </div>
             </form>
@@ -85,13 +98,25 @@
         <div id="play-container" class="col-sm-9">
             <div class="flex-row-c-s">
                 <div id="play-timer" class="flex-row-c-c">
-                    <h1>Timer: <span id="display-time"></span></h1>
+                    @if(isset($_GET["id"]))
+                        <h1>Timer: <span id="display-time">{!! $time !!}</span></h1>
+                    @else
+                        <h1>Timer: <span id="display-time"></span></h1>
+                    @endif
                 </div>
                 <div id="play-score" class="flex-row-c-c">
-                    <h1>Score: <span id="display-score"></span></h1>
+                    @if(isset($_GET["id"]))
+                        <h1>Score: <span id="display-score">{!! $score !!}</span></h1>
+                    @else
+                        <h1>Score: <span id="display-score"></span></h1>
+                    @endif
                 </div>
             </div>
-            <div id="board" class="flex-col-c-c"></div>
+            @if(isset($_GET["id"]))
+                <div id="board" class="flex-col-c-c">{!! $board !!}</div>
+            @else
+                <div id="board" class="flex-col-c-c"></div>
+            @endif
         </div>
         <!-- /#play-container -->
 
